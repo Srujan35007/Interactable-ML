@@ -37,7 +37,9 @@ def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
         classes = classes[0]
         num_classes = len(classes)
     data = []
-    
+    for i in range(len(classes)):
+        
+
 
 
     
@@ -49,12 +51,12 @@ def get_inputs():
     print(f'1. Classification.')
     print(f'2. Regression.')
     print(f'3. Load trained models.')
-    class_ = input()
+    class_ = int(input())
     if class_ == 1:
         print(f'Source of training data:')
         print(f'1. Path to the data-set.')
         print(f'2. Make training data through webcam.')
-        source_ = input()
+        source_ = int(input())
         if source_ == 1:
             print(f'Paste the path to you data-set.')
             path_ = input()
