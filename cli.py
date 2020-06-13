@@ -11,11 +11,36 @@ import math
 print('Imports complete.')
 
 
+def one_hot(num, n_outputs):
+    one_h = []
+    for i in range(n_outputs):
+        if i != num:
+            one_h.append(0)
+        else:
+            one_h.append(1)
+    return one_h
+
 def get_training_data_from_cam():
     pass
 
-def get_data_from_path(path_):
-    pass
+def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
+    path_string = '\\'.join(path_.split('\\'))
+    path_to_data_file = path_string + '\\' + folder_name_or_file_name
+    if is_regression is False:
+        num_classes = 0
+        classes = []
+        for roots, dirs, files in os.walk(path_to_data_file):
+            if dirs != []:
+                classes.append(dirs)
+            else:
+                pass
+        classes = classes[0]
+        num_classes = len(classes)
+    data = []
+    
+
+
+    
 
 
 
@@ -33,7 +58,9 @@ def get_inputs():
         if source_ == 1:
             print(f'Paste the path to you data-set.')
             path_ = input()
-            data = get_data_from_path(path_)
+            print(f'The name of the folder that you stored all the classes')
+            folder = input()
+            data = get_data_from_path(path_, folder, is_regression=False)
         elif source_ == 2:
             print(f'WebCam opening shortly.')
 
