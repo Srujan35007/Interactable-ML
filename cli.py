@@ -6,6 +6,8 @@ import csv
 from tensorflow.keras import models, layers
 import random
 import time
+import cv2
+import math
 print('Imports complete.')
 
 
@@ -17,7 +19,7 @@ def get_data_from_path(path_):
 
 
 
-def get_inputs:
+def get_inputs():
     print(f'Select a task:')
     print(f'1. Classification.')
     print(f'2. Regression.')
@@ -34,7 +36,6 @@ def get_inputs:
             data = get_data_from_path(path_)
         elif source_ == 2:
             print(f'WebCam opening shortly.')
-            
 
 
     elif class_ == 2:
@@ -211,23 +212,27 @@ def train_model(model, data, no_of_classes, checkpoint_file_name, is_regression=
                     train_flag = True
                 epoch_count += 1
         print(f'New model saved as <{checkpoint_filename}-classification>.')
-    
+
+
+
+# The lines from now on are for testing.
 '''
 net = make_image_classification_model((80, 80, 3), 3)
 img = np.tile(0.5, (80, 80, 3)).reshape(1, 80, 80, 3)  # Demo image for testing
 print(np.argmax(net.predict(img)[0]))
 '''
 
-
-net = make_regression_model((1,1))
+# Making the regression model
+net = make_regression_model((1,1)) # Making the regression model
 #print(net.summary())
 
+# Demo input for regression(Logistic)
 arr = [[i*5, i] for i in range(10000)]
 print(arr[1])
 elem = [arr[i][0] for i in range(10000)]
 label = [arr[i][1] for i in range(10000)]
 
-
+# training the regression model
 train_model(net, arr, 1, 'test1', True)
 
 new_model = models.load_model(f'./Ignore/test1')
