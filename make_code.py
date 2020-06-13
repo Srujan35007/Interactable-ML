@@ -70,4 +70,4 @@ with open(path, 'wt') as file:
     file.writelines(
         f"model.compile(loss = '{loss_fn}', optimizer = 'adam', metrics = ['accuracy'])\n")
     file.writelines(f"print('Model compiled')\n\n")
-print(f'Python file generated in the current dir as {file_name}')
+print(f'Python file generated in the current dir as tensorflow_ID_{file_name}.py')
