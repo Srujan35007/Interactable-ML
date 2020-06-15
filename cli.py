@@ -11,11 +11,37 @@ import math
 import pickle
 print('Imports complete.')
 
+
+def files_without_extention(file_name):
+    temp = ''
+    for i in range(len(fileName)-1):
+        if fileName[i] == '.':
+            break
+        else:
+            temp += fileName[i]
+    return temp
+
+
+def convert_to_csv(path_to_file, file_name):
+    total_path = path_to_file + '\\' + file_name
+    file_name_without_extention = files_without_extention(file_name)
+    renamed_path = path_to_file + '\\' + file_name_without_extention + '.csv'
+    if file_name.endswith('.txt') or file_name.endswith('.csv') or file_name.endswith('.xlsx'):
+        os.rename(total_path, renamed_path)
+    else:
+        print('Invalid extension. Try .txt .csv .xlsx files.')
+
+
 def split_data(normalized_data):
-    # Yet to be done
-    pass
+    len_data = len(normalized_data)
+    train_data = normalized_data[:(int(len_data*0.83))]
+    test_data = normalized_data[(int(len_data*0.83)):]
+    del(normalized_data)
+    return (train_data, test_data)
+
 
 def normalize_dataset(data_set):
+    # For normalizing the data from a CSV file.(For classification only)
     print(f'Normalizing the dataset.')
     max_values_for_each_column = [0]*(len(data_set[0])-1)
     for i in range(len(data_set)):
@@ -24,7 +50,12 @@ def normalize_dataset(data_set):
                 max_values_for_each_column[j] = data_set[i][j]
             else:
                 pass
-    
+    for i in range(len(data_set)):
+        for j in range(len(max_values_for_each_column)):
+            data_set[i][j] = data_set[i][j]/max_values_for_each_column[j]
+    print('Normalizing the dataset completed.')
+    return data_set
+
 
 def one_hot(num, n_outputs):
     one_h = []
@@ -35,9 +66,11 @@ def one_hot(num, n_outputs):
             one_h.append(1)
     return one_h
 
+
 def get_training_data_from_cam():
     # Yet to be done
     pass
+
 
 def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
     path_string = '\\'.join(path_.split('\\'))
@@ -69,12 +102,6 @@ def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
     elif is_regression:
         # Yet to be done
         pass
-
-
-
-
-    
-
 
 
 def get_inputs():
