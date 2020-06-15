@@ -11,6 +11,20 @@ import math
 import pickle
 print('Imports complete.')
 
+def split_data(normalized_data):
+    # Yet to be done
+    pass
+
+def normalize_dataset(data_set):
+    print(f'Normalizing the dataset.')
+    max_values_for_each_column = [0]*(len(data_set[0])-1)
+    for i in range(len(data_set)):
+        for j in range(len(max_values_for_each_column)):
+            if max_values_for_each_column[j] < data_set[i][j]:
+                max_values_for_each_column[j] = data_set[i][j]
+            else:
+                pass
+    
 
 def one_hot(num, n_outputs):
     one_h = []
@@ -22,6 +36,7 @@ def one_hot(num, n_outputs):
     return one_h
 
 def get_training_data_from_cam():
+    # Yet to be done
     pass
 
 def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
@@ -51,7 +66,9 @@ def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
                 img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
                 data.append([np.array(img_rgb)/255, one_hot(i, len(classes))])
         return data
-            
+    elif is_regression:
+        # Yet to be done
+        pass
 
 
 
