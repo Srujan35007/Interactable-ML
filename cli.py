@@ -8,6 +8,7 @@ import random
 import time
 import cv2
 import math
+import pickle
 print('Imports complete.')
 
 
@@ -36,16 +37,20 @@ def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
                 pass
         classes = classes[0]
         num_classes = len(classes)
-    data = []
-    for i in range(len(classes)):
-        files = []
-        path_to_class = path_to_data_file + classes[i]
-        for filename in os.listdir(path_to_class):
-            if filename.endswith('.jpg') or filename.endswith('.png'):
-                files.append(path_to_class + filename)
-            else:
-                pass
-        for file in files:
+        data = []
+        for i in range(len(classes)):
+            files = []
+            path_to_class = path_to_data_file + classes[i]
+            for filename in os.listdir(path_to_class):
+                if filename.endswith('.jpg') or filename.endswith('.png'):
+                    files.append(path_to_class + filename)
+                else:
+                    pass
+            for file in files:
+                img = cv2.imread(file)
+                img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                data.append([np.array(img_rgb)/255, one_hot(i, len(classes))])
+        return data
             
 
 
