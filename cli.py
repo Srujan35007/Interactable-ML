@@ -13,6 +13,7 @@ print('Imports complete.')
 
 
 def files_without_extention(file_name):
+    # Seperate filename from extension
     temp = ''
     for i in range(len(fileName)-1):
         if fileName[i] == '.':
@@ -23,6 +24,7 @@ def files_without_extention(file_name):
 
 
 def convert_to_csv(path_to_file, file_name):
+    # Convert Text, Excel files into CSV file
     total_path = path_to_file + '\\' + file_name
     file_name_without_extention = files_without_extention(file_name)
     renamed_path = path_to_file + '\\' + file_name_without_extention + '.csv'
@@ -33,6 +35,7 @@ def convert_to_csv(path_to_file, file_name):
 
 
 def split_data(normalized_data):
+    # Split data into train data and test data
     len_data = len(normalized_data)
     train_data = normalized_data[:(int(len_data*0.83))]
     test_data = normalized_data[(int(len_data*0.83)):]
@@ -58,6 +61,7 @@ def normalize_dataset(data_set):
 
 
 def one_hot(num, n_outputs):
+    # Make classes into One-hot vector
     one_h = []
     for i in range(n_outputs):
         if i != num:
@@ -68,11 +72,13 @@ def one_hot(num, n_outputs):
 
 
 def get_training_data_from_cam():
+    # Get data from Webcam
     # Yet to be done
     pass
 
 
 def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
+    # Make dataset ready to use from Data folders or Data file.
     path_string = '\\'.join(path_.split('\\'))
     path_to_data_file = path_string + '\\' + folder_name_or_file_name
     if is_regression is False:
@@ -105,6 +111,7 @@ def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
 
 
 def get_inputs():
+    # Get user inputs from the user.
     print(f'Select a task:')
     print(f'1. Classification.')
     print(f'2. Regression.')
