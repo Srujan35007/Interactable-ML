@@ -11,6 +11,29 @@ import math
 import pickle
 print('Imports complete.')
 
+def k_means(train_data, unknown_point,  n=1):
+    def get_distance(point_unknown, point_target):
+        if len(point_target) != len(point_target):
+            print('Dimesions of given data point do not match the train data')
+            k_means(train_data)
+        else:
+            distance = 0
+            for i in range(len(point_target)):
+                distance += (point_target[i] - point_unknown[i])**2
+            return math.sqrt(distance)
+    def get_majority(array):
+        
+
+    distances = []
+    for data in train_data:
+        X_point, label = data
+        distances.append((get_distance(unknown_point, X_point), label))
+    sort_criteria = lambda x : x[0]
+    distances.sort(key=sort_criteria)
+    distances = distances[:n]
+
+                
+
 
 def files_without_extention(file_name):
     # Seperate filename from extension
