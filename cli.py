@@ -135,13 +135,10 @@ def test_with_webcam(trained_model, input_shape, classes_list):
     while True:
         ret, frame = cap.read()
         elapsed = round((time.time() - start),1)
-        if elapsed % 0.1 == 0:
-            reshaped = np.asarray(cv2.resize(frame, input_shape))
-            out = trained_model.predict([reshaped]))[0]
-            class_ = classes_list[np.argmax(out)]
-            confidence = f'Confidence : {str(max(out)*100)}' + '%'
-        else:
-            pass
+        reshaped = np.asarray(cv2.resize(frame, input_shape)) # Tweaking Needed
+        out = trained_model.predict([reshaped]))[0]
+        class_ = classes_list[np.argmax(out)]
+        confidence = f'Confidence : {str(max(out)*100)}' + '%'
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(frame, class_, (0,16), font, 0.5, (100,250,0), thickness=1)
         cv2.putText(frame, confidence, (0,36), font, 0.5, (100,250,0), thickness=1)
