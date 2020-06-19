@@ -22,7 +22,6 @@ def k_means(train_data, unknown_point,  n=1):
             for i in range(len(point_target)):
                 distance += (point_target[i] - point_unknown[i])**2
             return math.sqrt(distance)
-
     def get_majority(array):
         all_labels_set = list(set([element[1] for element in array]))
         all_labels = [element[1] for element in array]
@@ -32,7 +31,6 @@ def k_means(train_data, unknown_point,  n=1):
                 max_ = all_labels.count(label)
                 max_label = label
         return max_label
-    
     distances = []
     for data in train_data:
         X_point, label = data
@@ -43,7 +41,6 @@ def k_means(train_data, unknown_point,  n=1):
     return get_majority(distances)
 
                 
-
 def files_without_extention(file_name):
     # Seperate filename from extension
     temp = ''
@@ -130,6 +127,31 @@ def get_training_data_from_cam():
     cv2.destroyAllWindows()
 
 
+def test_with_webcam(trained_model, input_shape, classes_list):
+    cap = cv2.VideoCapture(0)
+    start = time.time()
+    class_ = ''
+    confidence = 0
+    while True:
+        ret, frame = cap.read()
+        elapsed = round((time.time() - start),1)
+        if elapsed % 0.1 == 0:
+            reshaped = np.asarray(cv2.resize(frame, input_shape))
+            out = trained_model.predict([reshaped]))[0]
+            class_ = classes_list[np.argmax(out)]
+            confidence = f'Confidence : {str(max(out)*100)}' + '%'
+        else:
+            pass
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        cv2.putText(frame, class_, (0,16), font, 0.5, (100,250,0), thickness=1)
+        cv2.putText(frame, confidence, (0,36), font, 0.5, (100,250,0), thickness=1)
+        cv2.imshow('Press Q to Quit', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    cap.release()
+    cv2.destroyAllWindows()
+
+
 def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
     # Make dataset ready to use from Data folders or Data file.
     path_string = '\\'.join(path_.split('\\'))
@@ -193,7 +215,6 @@ def get_inputs():
         print('Input invalid.')
         get_inputs()
     
-
 
 def make_image_classification_model(input_shape_, no_of_classes):
     model = models.Sequential()
