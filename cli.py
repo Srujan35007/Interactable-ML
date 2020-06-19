@@ -105,8 +105,29 @@ def one_hot(num, n_outputs):
 
 def get_training_data_from_cam():
     # Get data from Webcam
-    cap = cv2.VideoCapture()
-    
+    wait_time = 8 # seconds
+    cap = cv2.VideoCapture(0)
+    start_time = time.time()
+    count = 0
+    while True:
+        ret, frame = cap.read()
+        now = time.time()
+        elapsed = (now - start_time)//1
+        #print(elapsed)
+        if elapsed < wait_time + 1:
+            text = f'Recording starts in {wait_time - elapsed + 1}'
+        else:
+            text = f'Rec : {count} Frames'
+            filename = f'C:\\Users\\S.RAMACHANDRAM\\Desktop\\New\\a{count}.jpg'
+            cv2.imwrite(filename, frame)
+            count += 1
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        cv2.putText(frame, text, (0,100), font, 1, (100,250,0), thickness=1)
+        cv2.imshow('Press Q to Quit', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    cap.release()
+    cv2.destroyAllWindows()
 
 
 def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
