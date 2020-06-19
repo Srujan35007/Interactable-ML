@@ -11,6 +11,7 @@ import math
 import pickle
 print('Imports complete.')
 
+
 def k_means(train_data, unknown_point,  n=1):
     def get_distance(point_unknown, point_target):
         if len(point_target) != len(point_target):
@@ -21,9 +22,17 @@ def k_means(train_data, unknown_point,  n=1):
             for i in range(len(point_target)):
                 distance += (point_target[i] - point_unknown[i])**2
             return math.sqrt(distance)
-    def get_majority(array):
-        
 
+    def get_majority(array):
+        all_labels_set = list(set([element[1] for element in array]))
+        all_labels = [element[1] for element in array]
+        max_ = 0
+        for label in all_labels_set:
+            if max_ < all_labels.count(label):
+                max_ = all_labels.count(label)
+                max_label = label
+        return max_label
+    
     distances = []
     for data in train_data:
         X_point, label = data
@@ -31,9 +40,9 @@ def k_means(train_data, unknown_point,  n=1):
     sort_criteria = lambda x : x[0]
     distances.sort(key=sort_criteria)
     distances = distances[:n]
+    return get_majority(distances)
 
                 
-
 
 def files_without_extention(file_name):
     # Seperate filename from extension
@@ -96,8 +105,8 @@ def one_hot(num, n_outputs):
 
 def get_training_data_from_cam():
     # Get data from Webcam
-    # Yet to be done
-    pass
+    cap = cv2.VideoCapture()
+    
 
 
 def get_data_from_path(path_, folder_name_or_file_name, is_regression = False):
