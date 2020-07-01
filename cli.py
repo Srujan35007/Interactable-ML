@@ -12,7 +12,7 @@ import pickle
 print('Imports complete.')
 
 
-def k_means(train_data, unknown_point,  n=1):
+def k_nearest_neighbours(train_data, unknown_point,  n=1):
     def get_distance(point_unknown, point_target):
         if len(point_target) != len(point_target):
             print('Dimesions of given data point do not match the train data')
@@ -40,7 +40,40 @@ def k_means(train_data, unknown_point,  n=1):
     distances = distances[:n]
     return get_majority(distances)
 
-                
+
+class linear_regression():
+    def __init__(self):
+        pass
+
+    def fit(self, data_set):
+        # returns m and b
+        sigma_x = 0
+        sigma_y = 0
+        sigma_x_squared = 0
+        sigma_xy = 0
+        n = len(data_set)
+        for point in data_set:
+            x,y = point
+            sigma_x += x
+            sigma_y += y
+            sigma_x_squared += x**2
+            sigma_xy += x*y
+        
+        m = (n*sigma_xy - (sigma_x*sigma_y))/(n*sigma_x_squared - sigma_x**2)
+        b = (sigma_y*sigma_x_squared - sigma_x*sigma_xy)/(n*sigma_x_squared - sigma_x**2)
+
+        self.m = m
+        self.b = b
+    
+    def get_params(self):
+        # returns m and b
+        return (self.m, self.b)
+
+    def test(self, test_point_x):
+        # returns the y coordinate of the wanted x coordinate
+        return self.m*(test_point_x) + self.b
+
+
 def files_without_extention(file_name):
     # Seperate filename from extension
     temp = ''
