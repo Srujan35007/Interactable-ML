@@ -1,5 +1,6 @@
 # Interactive-ML
 Machine learning using command line interface for users who don't want to code.<br>
+I would like to thank [Chitla Mani Teja](https://github.com/manitejachitla) for the idea. 
 ## Key features
 - Works offline.
 - Automated early stopping (The training process to avoid over fitting).
